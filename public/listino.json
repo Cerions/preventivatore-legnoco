@@ -1,0 +1,25 @@
+{
+  "aliquotaIva": 0.22,
+  "misure": {
+    "minimaCm": 30,
+    "massimaCm": 300
+  },
+  "legni": [
+    { "nome": "Abete", "prezzoMq": 85 },
+    { "nome": "Pino", "prezzoMq": 95 },
+    { "nome": "Castagno", "prezzoMq": 160 },
+    { "nome": "Rovere", "prezzoMq": 180 },
+    { "nome": "Noce", "prezzoMq": 240 }
+  ],
+  "finiture": [
+    { "nome": "Grezzo", "supplementoMq": 0 },
+    { "nome": "Cera naturale", "supplementoMq": 12 },
+    { "nome": "Verniciato opaco", "supplementoMq": 18 },
+    { "nome": "Laccato", "supplementoMq": 35 }
+  ],
+  "consegne": [
+    { "nome": "Ritiro in sede", "costo": 0 },
+    { "nome": "Entro 50 km", "costo": 60 },
+    { "nome": "Oltre 50 km", "costo": 120 }
+  ]
+}

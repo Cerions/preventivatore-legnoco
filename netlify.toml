@@ -1,0 +1,13 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# Il listino deve essere sempre fresco: quando il titolare cambia un prezzo,
+# il cliente deve vedere subito il nuovo valore.
+[[headers]]
+  for = "/listino.json"
+  [headers.values]
+    Cache-Control = "no-cache"
