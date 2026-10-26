@@ -78,23 +78,26 @@ export function validaListino(listino) {
 
 /**
  * Valida una misura scritta dal cliente.
+ * @param {string} nome nome della misura con l'articolo, es. "l'altezza"
  * @returns {{ valore: number } | { errore: string }}
  */
-export function validaMisura(testo, etichetta, { minimaCm, massimaCm }) {
+export function validaMisura(testo, nome, { minimaCm, massimaCm }) {
+  // nome con l'articolo: "la larghezza", "l'altezza", "la profondità"
+  const Nome = nome.charAt(0).toUpperCase() + nome.slice(1)
   const pulito = String(testo ?? '').trim()
   if (pulito === '') {
-    return { errore: `Inserisci la ${etichetta}.` }
+    return { errore: `Inserisci ${nome}.` }
   }
   if (!NUMERO.test(pulito)) {
-    return { errore: `La ${etichetta} deve essere un numero in centimetri (es. 120 o 120,5).` }
+    return { errore: `${Nome} deve essere un numero in centimetri (es. 120 o 120,5).` }
   }
   const valore = Number(pulito.replace(',', '.'))
   if (valore <= 0) {
-    return { errore: `La ${etichetta} deve essere maggiore di zero.` }
+    return { errore: `${Nome} deve essere maggiore di zero.` }
   }
   if (valore < minimaCm || valore > massimaCm) {
     return {
-      errore: `La ${etichetta} deve essere tra ${minimaCm} e ${massimaCm} cm.`,
+      errore: `${Nome} deve essere tra ${minimaCm} e ${massimaCm} cm.`,
     }
   }
   return { valore }

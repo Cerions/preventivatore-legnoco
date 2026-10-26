@@ -18,9 +18,9 @@ const euro = (s) => s.replace(' ', ' ')
 function preventivo(caso) {
   const misure = {}
   for (const [campo, etichetta] of [
-    ['larghezza', 'larghezza'],
-    ['altezza', 'altezza'],
-    ['profondita', 'profondità'],
+    ['larghezza', 'la larghezza'],
+    ['altezza', "l'altezza"],
+    ['profondita', 'la profondità'],
   ]) {
     const esito = validaMisura(caso[campo], etichetta, limiti)
     if (esito.errore) return { errore: esito.errore }
@@ -77,7 +77,11 @@ describe('validaMisura', () => {
     ['2000', 'La larghezza deve essere tra 30 e 300 cm.'],
     ['29,9', 'La larghezza deve essere tra 30 e 300 cm.'],
   ])('"%s" → errore', (testo, errore) => {
-    expect(validaMisura(testo, 'larghezza', limiti)).toEqual({ errore })
+    expect(validaMisura(testo, 'la larghezza', limiti)).toEqual({ errore })
+  })
+
+  it("usa l'articolo giusto: L'altezza", () => {
+    expect(validaMisura('500', "l'altezza", limiti)).toEqual({ errore: "L'altezza deve essere tra 30 e 300 cm." })
   })
 
   it.each([
@@ -87,7 +91,7 @@ describe('validaMisura', () => {
     ['120.5', 120.5],
     [' 80 ', 80],
   ])('"%s" → %s', (testo, valore) => {
-    expect(validaMisura(testo, 'larghezza', limiti)).toEqual({ valore })
+    expect(validaMisura(testo, 'la larghezza', limiti)).toEqual({ valore })
   })
 })
 

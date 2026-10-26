@@ -1,16 +1,43 @@
-# React + Vite
+# Preventivatore Legno & Co.
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Calcolatore online del prezzo dei mobili su misura. Sito statico in React + Vite, pubblicato su Netlify.
 
-Currently, two official plugins are available:
+## Per il titolare: come cambiare i prezzi
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Tutti i prezzi sono nel file **`public/listino.json`**. Il codice non contiene prezzi.
 
-## React Compiler
+1. Apri il file `public/listino.json` sul repository GitHub e clicca sulla matita (✏️ *Edit*).
+2. Cambia solo i numeri. Usa il **punto** per i decimali (`92.50`, non `92,50`) e non toccare virgolette, parentesi e virgole.
+3. Clicca *Commit changes*. Netlify ripubblica il sito da solo in circa un minuto.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+| Voce | Significato |
+|---|---|
+| `aliquotaIva` | IVA come numero decimale: `0.22` = 22% |
+| `misure.minimaCm` / `misure.massimaCm` | misura minima e massima accettata, in cm (inclusi) |
+| `legni[].prezzoMq` | prezzo del legno in €/m², IVA esclusa |
+| `finiture[].supplementoMq` | supplemento della finitura in €/m², IVA esclusa |
+| `consegne[].costo` | costo fisso della consegna in €, IVA esclusa |
 
-## Expanding the Oxlint configuration
+Per aggiungere un legno, una finitura o una zona di consegna, copia una riga esistente e cambiane nome e prezzo.
+Se il file contiene un errore, il sito non mostra prezzi sbagliati: mostra un avviso e, sotto "Dettagli per il titolare", cosa correggere.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+## Come si calcola
+
+```
+superficie (m²) = 2 × (L·H + L·P + H·P) / 10000      misure in cm, tutte e 6 le facce
+imponibile      = superficie × (prezzo legno + supplemento finitura) + consegna
+IVA             = imponibile × aliquota, arrotondata al centesimo
+totale          = imponibile + IVA
+```
+
+## Per gli sviluppatori
+
+```bash
+npm install
+npm run dev      # http://localhost:5173
+npm test         # test di calcolo e validazione, inclusi i casi C1–C5
+npm run build    # build in dist/
+```
+
+Pubblicazione su Netlify: *Add new site → Import an existing project*, scegli il repository. Comando di build e cartella sono già in `netlify.toml`.
+Le regole del progetto per l'agente sono in `CLAUDE.md`.
