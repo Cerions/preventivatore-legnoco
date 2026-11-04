@@ -9,7 +9,7 @@ Commessa di riferimento: `01_COMMESSA_Legno_e_Co_Preventivatore.docx` · listino
 - Test: Vitest (`npm test`)
 - Hosting: Netlify, sito statico (`npm run build` → `dist/`), configurato in `netlify.toml`
 - three.js (anteprima 3D), jsPDF (PDF), font Archivo self-hosted (@fontsource): tutti caricati dal progetto, nessun CDN
-- Nessun database, nessuna libreria UI esterna. Il sito è statico; l'unico server è quello **facoltativo** della chat (FastAPI su Render, cartella `AssistenteListino/blocco2`, fuori da questo repository), indirizzo in `VITE_CHAT_URL`: se manca, la chat non compare
+- Nessun database, nessuna libreria UI esterna. Il sito è statico; l'unico server è quello **facoltativo** della chat (FastAPI su Vercel, cartella `AssistenteListino/blocco2`, fuori da questo repository), indirizzo in `VITE_CHAT_URL`: se manca, la chat non compare
 
 ## Comandi
 - `npm run dev` — server locale (serve anche `public/listino.json`); `/admin?prova` = admin con finto GitHub in memoria (solo sviluppo)

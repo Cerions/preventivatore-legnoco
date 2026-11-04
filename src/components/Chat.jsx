@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { ErroreChat, inviaMessaggio, LUNGHEZZA_MASSIMA, nuovaSessione } from '../lib/chat.js'
+import { CONTESTO_VUOTO, ErroreChat, inviaMessaggio, LUNGHEZZA_MASSIMA, nuovaSessione } from '../lib/chat.js'
 import './chat.css'
 
 const SALUTO =
@@ -18,6 +18,7 @@ export default function Chat() {
   const [inInvio, setInInvio] = useState(false)
   const [errore, setErrore] = useState(null)
   const sessione = useRef(null)
+  const contesto = useRef(CONTESTO_VUOTO) // storia e riassunto per il server, solo in memoria
   const fondo = useRef(null)
   const campo = useRef(null)
   const bottoneApri = useRef(null)
@@ -46,6 +47,7 @@ export default function Chat() {
 
   function ricomincia() {
     sessione.current = null
+    contesto.current = CONTESTO_VUOTO
     setMessaggi([])
     setErrore(null)
     setTesto('')
@@ -62,8 +64,9 @@ export default function Chat() {
     setErrore(null)
     setInInvio(true)
     try {
-      const risposta = await inviaMessaggio(sessione.current, domanda)
-      setMessaggi((m) => [...m, { ruolo: 'assistente', testo: risposta }])
+      const risposta = await inviaMessaggio(sessione.current, domanda, contesto.current)
+      contesto.current = risposta.contesto
+      setMessaggi((m) => [...m, { ruolo: 'assistente', testo: risposta.testo }])
     } catch (err) {
       setErrore(err instanceof ErroreChat ? err.message : 'Qualcosa non ha funzionato. Riprova.')
       setTesto(domanda) // il messaggio non è andato perso: si può rimandare
