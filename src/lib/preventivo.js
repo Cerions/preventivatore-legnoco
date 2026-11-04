@@ -70,11 +70,21 @@ export function validaListino(listino) {
       if (!eNumeroValido(voce?.[campo]) || voce[campo] < 0) {
         problemi.push(`In "${nomeElenco}" la voce "${nome || i + 1}" ha "${campo}" non valido (serve un numero ≥ 0).`)
       }
+      // Campi solo estetici (anteprima 3D): facoltativi, ma se ci sono devono essere sensati
+      if (voce?.colore !== undefined && !COLORE.test(String(voce.colore))) {
+        problemi.push(`In "${nomeElenco}" la voce "${nome || i + 1}" ha "colore" non valido (serve un codice come "#B98A5C").`)
+      }
+      if (voce?.lucidita !== undefined && (!eNumeroValido(voce.lucidita) || voce.lucidita < 0 || voce.lucidita > 1)) {
+        problemi.push(`In "${nomeElenco}" la voce "${nome || i + 1}" ha "lucidita" non valida (serve un numero tra 0 e 1).`)
+      }
     })
   }
 
   return problemi
 }
+
+const COLORE = /^#[0-9a-fA-F]{6}$/
+export const COLORE_PREDEFINITO = '#B98A5C'
 
 /**
  * Valida una misura scritta dal cliente.

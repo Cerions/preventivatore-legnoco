@@ -5,17 +5,17 @@
     "massimaCm": 300
   },
   "legni": [
-    { "nome": "Abete", "prezzoMq": 85 },
-    { "nome": "Pino", "prezzoMq": 95 },
-    { "nome": "Castagno", "prezzoMq": 160 },
-    { "nome": "Rovere", "prezzoMq": 180 },
-    { "nome": "Noce", "prezzoMq": 240 }
+    { "nome": "Abete", "prezzoMq": 85, "colore": "#E6CC9C" },
+    { "nome": "Pino", "prezzoMq": 95, "colore": "#DDAA6B" },
+    { "nome": "Castagno", "prezzoMq": 160, "colore": "#8F5B36" },
+    { "nome": "Rovere", "prezzoMq": 180, "colore": "#B98A5C" },
+    { "nome": "Noce", "prezzoMq": 240, "colore": "#5E3B26" }
   ],
   "finiture": [
-    { "nome": "Grezzo", "supplementoMq": 0 },
-    { "nome": "Cera naturale", "supplementoMq": 12 },
-    { "nome": "Verniciato opaco", "supplementoMq": 18 },
-    { "nome": "Laccato", "supplementoMq": 35 }
+    { "nome": "Grezzo", "supplementoMq": 0, "lucidita": 0 },
+    { "nome": "Cera naturale", "supplementoMq": 12, "lucidita": 0.35 },
+    { "nome": "Verniciato opaco", "supplementoMq": 18, "lucidita": 0.2 },
+    { "nome": "Laccato", "supplementoMq": 35, "lucidita": 0.85 }
   ],
   "consegne": [
     { "nome": "Ritiro in sede", "costo": 0 },
