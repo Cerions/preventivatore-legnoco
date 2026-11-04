@@ -46,6 +46,14 @@ IVA             = imponibile × aliquota, arrotondata al centesimo
 totale          = imponibile + IVA
 ```
 
+## Assistente chat (facoltativo)
+
+Sotto il preventivatore c'è il pulsante **Chiedi all'assistente**: una chat con un assistente di intelligenza artificiale che risponde su legni, finiture e consegne usando il listino pubblicato. È chiusa di default e prima del primo messaggio il cliente legge un avviso: i messaggi della chat vengono inviati al server dell'assistente, il preventivo no. Il prezzo ufficiale resta quello del preventivatore.
+
+- Il sito resta statico; la chat parla con un server separato (FastAPI, cartella `blocco2` del progetto AssistenteListino) pubblicato su Render. Istruzioni in `blocco2/DEPLOY.md`.
+- L'indirizzo del server si imposta su Netlify con la variabile `VITE_CHAT_URL` (vedi `.env.example`). Senza la variabile la chat non compare.
+- La chiave dell'IA sta solo nelle impostazioni di Render, mai nel repository.
+
 ## Documenti di progetto
 
 Nella cartella [`docs/`](docs/) ci sono i documenti di lavoro della commessa: non servono a far funzionare il sito.

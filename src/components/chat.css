@@ -1,0 +1,212 @@
+/* Chat facoltativa. Usa i colori e il font definiti in index.css. */
+
+/* ---------- Pulsante per aprire la chat ---------- */
+.chat-apri {
+  position: fixed;
+  right: 12px;
+  /* su telefono sta sopra la barra del totale */
+  bottom: calc(max(12px, env(safe-area-inset-bottom)) + 88px);
+  z-index: 20;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 8px 18px 8px 14px;
+  border: 1.5px solid var(--grafite);
+  border-radius: 999px;
+  background: var(--carta);
+  color: var(--grafite);
+  font: inherit;
+  font-weight: 650;
+  box-shadow: 0 10px 30px -12px rgba(35, 39, 43, 0.55);
+  cursor: pointer;
+}
+
+.chat-apri:hover {
+  background: var(--banco);
+}
+
+.chat-apri__icona {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linejoin: round;
+}
+
+/* ---------- Pannello ---------- */
+.chat {
+  position: fixed;
+  left: 12px;
+  right: 12px;
+  bottom: max(12px, env(safe-area-inset-bottom));
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  height: min(78dvh, 560px);
+  border: 1.5px solid var(--grafite);
+  border-radius: 8px;
+  background: var(--carta);
+  box-shadow: 0 20px 50px -15px rgba(35, 39, 43, 0.6);
+  overflow: hidden;
+}
+
+.chat__testata {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 14px;
+  background: var(--grafite);
+  color: #fff;
+}
+
+.chat__testata h2 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.chat__azioni {
+  display: flex;
+  gap: 14px;
+}
+
+.chat__link {
+  padding: 6px 0;
+  border: 0;
+  background: none;
+  color: var(--metro);
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 650;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+.chat__link:focus-visible,
+.chat-apri:focus-visible {
+  outline: 2px solid var(--metro);
+  outline-offset: 2px;
+}
+
+.chat__testata .chat__link:focus-visible {
+  outline-color: #fff;
+}
+
+/* ---------- Avviso prima del primo messaggio ---------- */
+.chat__avviso {
+  padding: 16px;
+  overflow-y: auto;
+}
+
+.chat__avviso p {
+  margin: 0 0 10px;
+}
+
+.chat__avviso .bottone {
+  margin-top: 6px;
+}
+
+/* ---------- Messaggi ---------- */
+.chat__messaggi {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 14px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.chat__bolla {
+  max-width: 88%;
+  margin: 0;
+  padding: 9px 12px;
+  border-radius: 6px;
+  line-height: 1.45;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.chat__bolla--assistente {
+  align-self: flex-start;
+  border: 1px solid var(--linea);
+  background: #fff;
+}
+
+.chat__bolla--cliente {
+  align-self: flex-end;
+  background: var(--metro);
+  color: var(--grafite);
+}
+
+.chat__bolla--attesa {
+  color: var(--grafite-tenue);
+}
+
+.chat__errore {
+  margin: 0;
+  padding: 9px 12px;
+  border: 1px solid var(--errore);
+  border-radius: 6px;
+  background: var(--errore-sfondo);
+  color: var(--errore);
+}
+
+/* ---------- Campo di scrittura ---------- */
+.chat__form {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
+  padding: 10px 12px;
+  border-top: 1px solid var(--linea);
+  background: var(--banco);
+}
+
+.chat__etichetta {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.chat__campo {
+  min-width: 0;
+  min-height: 48px;
+  padding: 8px 12px;
+  border: 1.5px solid var(--linea);
+  border-radius: 4px;
+  background: #fff;
+  color: var(--grafite);
+  font: inherit;
+  font-size: 1rem; /* 16 px: evita lo zoom automatico su iPhone */
+}
+
+.chat__campo:focus {
+  border-color: var(--grafite);
+}
+
+.chat__invia {
+  width: auto;
+}
+
+/* ---------- Schermi larghi: finestra in basso a destra ---------- */
+@media (min-width: 900px) {
+  .chat-apri {
+    right: 24px;
+    bottom: 24px;
+  }
+
+  .chat {
+    left: auto;
+    right: 24px;
+    bottom: 24px;
+    width: 390px;
+    height: min(70dvh, 580px);
+  }
+}
