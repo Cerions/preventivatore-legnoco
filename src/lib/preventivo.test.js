@@ -111,3 +111,19 @@ describe('prezzi dal file di dati', () => {
     expect(dopo.imponibileCent - prima.imponibileCent).toBe(7 * 10 * 100) // 7 m² × 10 €
   })
 })
+
+describe('campi estetici del listino', () => {
+  it('colore e lucidità sono facoltativi', () => {
+    const senza = structuredClone(listino)
+    senza.legni.forEach((l) => delete l.colore)
+    senza.finiture.forEach((f) => delete f.lucidita)
+    expect(validaListino(senza)).toEqual([])
+  })
+
+  it('segnala colore e lucidità non validi', () => {
+    const rotto = structuredClone(listino)
+    rotto.legni[0].colore = 'marrone'
+    rotto.finiture[0].lucidita = 3
+    expect(validaListino(rotto)).toHaveLength(2)
+  })
+})

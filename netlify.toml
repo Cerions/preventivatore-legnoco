@@ -11,3 +11,15 @@
   for = "/listino.json"
   [headers.values]
     Cache-Control = "no-cache"
+
+# Seconda pagina: l'area del titolare. È la stessa app React, che mostra l'admin
+# quando l'indirizzo finisce con /admin.
+[[redirects]]
+  from = "/admin"
+  to = "/index.html"
+  status = 200
+
+[[headers]]
+  for = "/admin"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"

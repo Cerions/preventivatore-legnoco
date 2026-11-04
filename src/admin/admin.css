@@ -1,0 +1,278 @@
+.admin {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 20px 16px 64px;
+}
+
+.admin__marchio {
+  margin: 0 0 18px;
+  font-weight: 650;
+  font-stretch: 112%;
+}
+
+.admin__marchio a {
+  color: inherit;
+  text-decoration-color: var(--metro-bordo);
+  text-underline-offset: 3px;
+}
+
+.admin h1 {
+  max-width: none;
+  margin-bottom: 8px;
+  font-size: clamp(2rem, 7vw, 2.8rem);
+}
+
+.admin__intro,
+.admin__utente {
+  margin: 0;
+  max-width: 58ch;
+  color: var(--grafite-tenue);
+}
+
+.admin__utente {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 10px;
+}
+
+.admin__link {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--grafite);
+  font: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+.admin__accesso {
+  margin-top: 26px;
+}
+
+.admin__primario,
+.admin__secondario {
+  min-height: 48px;
+  padding: 10px 20px;
+  border-radius: 4px;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.admin__primario {
+  border: 0;
+  background: var(--grafite);
+  color: #fff;
+}
+
+.admin__secondario {
+  border: 1.5px solid var(--grafite);
+  background: #fff;
+  color: var(--grafite);
+}
+
+.admin__primario:disabled,
+.admin__secondario:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.admin__nota,
+.admin__aiuto {
+  margin: 8px 0 0;
+  font-size: 0.875rem;
+  color: var(--grafite-tenue);
+}
+
+.admin__aiuto {
+  margin: 0 0 10px;
+}
+
+.admin__errore {
+  margin: 12px 0 0;
+  padding: 10px 12px;
+  border-left: 3px solid var(--errore);
+  background: var(--errore-sfondo);
+  color: var(--errore);
+}
+
+.admin__modulo {
+  margin-top: 24px;
+}
+
+.admin__gruppo {
+  margin: 0 0 24px;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+}
+
+.admin__gruppo legend {
+  padding: 0;
+  margin-bottom: 6px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  font-stretch: 112%;
+}
+
+.admin__generali {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.admin__riga {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) minmax(0, 1fr) auto;
+  align-items: end;
+  gap: 10px;
+  padding: 10px 0;
+  border-top: 1px solid var(--linea);
+}
+
+.admin__riga--consegna {
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) auto;
+}
+
+@media (max-width: 560px) {
+  .admin__generali {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .admin__generali > :first-child {
+    grid-column: 1 / -1;
+  }
+
+  .admin__riga {
+    grid-template-columns: 1fr 1fr auto;
+  }
+
+  .admin__riga > :first-child {
+    grid-column: 1 / -1;
+  }
+
+  .admin__riga--consegna {
+    grid-template-columns: 1fr auto;
+  }
+}
+
+.admin__campo {
+  display: grid;
+  gap: 4px;
+  font-size: 0.8rem;
+  font-weight: 650;
+}
+
+.admin__input {
+  position: relative;
+}
+
+.admin__input input {
+  width: 100%;
+  min-height: 44px;
+  padding: 8px 52px 8px 10px;
+  border: 1.5px solid var(--linea);
+  border-radius: 4px;
+  background: #fff;
+  color: var(--grafite);
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+
+.admin__campo--testo .admin__input input {
+  padding-right: 10px;
+}
+
+.admin__input input:focus {
+  border-color: var(--grafite);
+  outline: 2px solid var(--grafite);
+  outline-offset: 0;
+}
+
+.admin__input > span {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-weight: 500;
+  color: var(--grafite-tenue);
+  pointer-events: none;
+}
+
+.admin__campo--colore input {
+  width: 100%;
+  height: 44px;
+  padding: 2px;
+  border: 1.5px solid var(--linea);
+  border-radius: 4px;
+  background: #fff;
+  cursor: pointer;
+}
+
+.admin__campo--lucidita input {
+  width: 100%;
+  height: 44px;
+  accent-color: var(--grafite);
+}
+
+.admin__togli,
+.admin__aggiungi {
+  min-height: 44px;
+  padding: 8px 12px;
+  border: 1.5px solid var(--linea);
+  border-radius: 4px;
+  background: #fff;
+  color: var(--grafite);
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.admin__togli:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.admin__aggiungi {
+  margin-top: 6px;
+  border-style: dashed;
+}
+
+.admin__pubblica {
+  position: sticky;
+  bottom: 0;
+  margin: 0 -16px;
+  padding: 16px;
+  border-top: 2px solid var(--grafite);
+  background: var(--carta);
+}
+
+.admin__pubblica h2 {
+  margin: 0 0 6px;
+  font-size: 1rem;
+}
+
+.admin__modifiche,
+.admin__problemi {
+  margin: 0;
+  padding-left: 1.2em;
+  max-height: 9.5em;
+  overflow: auto;
+  font-size: 0.9rem;
+}
+
+.admin__problemi {
+  color: var(--errore);
+}
+
+.admin__azioni {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 12px;
+}
