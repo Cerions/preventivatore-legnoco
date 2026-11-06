@@ -1,6 +1,10 @@
-import { useCallback, useEffect, useState } from 'react'
+import { lazy, Suspense, useCallback, useEffect, useState } from 'react'
 import Preventivatore from './components/Preventivatore.jsx'
+import { chatDisponibile } from './lib/chat.js'
 import { caricaListino } from './lib/listino.js'
+
+// La chat è facoltativa: arriva in un file separato e solo se il server è configurato
+const Chat = lazy(() => import('./components/Chat.jsx'))
 
 function useListino() {
   const [stato, setStato] = useState({ fase: 'caricamento' })
@@ -71,8 +75,18 @@ export default function App() {
       </main>
 
       <footer className="piede">
-        <p>I dati che inserisci restano sul tuo dispositivo: non vengono salvati né inviati.</p>
+        <p>I dati che inserisci nel preventivatore restano sul tuo dispositivo: non vengono salvati né inviati.</p>
+        {chatDisponibile && (
+          <p>La chat con l’assistente è facoltativa: se la usi, i tuoi messaggi vengono inviati per ricevere la risposta.</p>
+        )}
       </footer>
+
+      {/* Senza un listino valido non mostriamo prezzi, quindi nemmeno la chat che li racconterebbe */}
+      {chatDisponibile && statoListino.fase === 'pronto' && (
+        <Suspense fallback={null}>
+          <Chat />
+        </Suspense>
+      )}
     </div>
   )
 }

@@ -9,12 +9,13 @@ Commessa di riferimento: `01_COMMESSA_Legno_e_Co_Preventivatore.docx` · listino
 - Test: Vitest (`npm test`)
 - Hosting: Netlify, sito statico (`npm run build` → `dist/`), configurato in `netlify.toml`
 - three.js (anteprima 3D), jsPDF (PDF), font Archivo self-hosted (@fontsource): tutti caricati dal progetto, nessun CDN
-- Nessun server, nessun database, nessuna libreria UI esterna
+- Nessun database, nessuna libreria UI esterna. Il sito è statico; l'unico server è quello **facoltativo** della chat (FastAPI su Vercel, cartella `AssistenteListino/blocco2`, fuori da questo repository), indirizzo in `VITE_CHAT_URL`: se manca, la chat non compare
 
 ## Comandi
 - `npm run dev` — server locale (serve anche `public/listino.json`); `/admin?prova` = admin con finto GitHub in memoria (solo sviluppo)
 - `npm test` — test di calcolo, validazione e admin, inclusi i 5 casi di accettazione
 - `npm run build` — build di produzione
+- Chat in locale: avvia il server (`uvicorn server:app`) e metti `VITE_CHAT_URL=http://127.0.0.1:8000/chat` in `.env.local` (vedi `.env.example`)
 
 ## Struttura
 - `public/listino.json` — **unico posto dei prezzi**: legni (+ `colore` facoltativo), finiture (+ `lucidita` 0–1 facoltativa), consegne, aliquota IVA, misure min/max
@@ -24,6 +25,8 @@ Commessa di riferimento: `01_COMMESSA_Legno_e_Co_Preventivatore.docx` · listino
 - `src/components/Preventivatore.jsx` — pagina cliente: metro con le misure, scelte, riepilogo, barra del totale su telefono
 - `src/components/Mobile3D.jsx` — anteprima 3D (three.js, caricata con `React.lazy`), quote sugli spigoli, `istantanea()` per il PDF
 - `src/admin/` — pagina `/admin`: login GitHub via provider OAuth di Netlify (`github.js`), modulo e differenze (`bozza.js`), finto backend per lo sviluppo (`backendProva.js`)
+- `src/lib/chat.js` — client della chat: `VITE_CHAT_URL`, sessione in memoria, errori in italiano
+- `src/components/Chat.jsx` + `chat.css` — chat facoltativa, chiusa di default, caricata con `React.lazy`, avviso privacy prima del primo messaggio
 - `src/Radice.jsx` — sceglie tra pagina cliente e `/admin` (redirect in `netlify.toml`)
 
 ## Regole non negoziabili
@@ -37,7 +40,7 @@ Commessa di riferimento: `01_COMMESSA_Legno_e_Co_Preventivatore.docx` · listino
 4. **Formato importi**: `Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR', useGrouping: 'always' })` → `1.234,56 €`. Senza `useGrouping: 'always'` l'italiano scrive `1234,56 €`.
 5. **Validazione misure**: obbligatorie, numeriche (accettata la virgola decimale: `120,5`), maggiori di zero, tra min e max **inclusi**. Se una misura non è valida: messaggio in italiano sotto il campo e **nessun prezzo mostrato**.
 6. **Listino rotto** (file mancante, JSON non valido, prezzo negativo o non numerico): messaggio chiaro, nessun prezzo. Mai pagina bianca.
-7. **Privacy**: i dati inseriti dal cliente non si salvano e non si inviano (niente localStorage, niente analytics, niente form verso server, niente font o script da CDN). Il PDF si genera nel browser.
+7. **Privacy**: i dati del preventivatore (misure e scelte) non si salvano e non si inviano (niente localStorage, niente analytics, niente form verso server, niente font o script da CDN). Il PDF si genera nel browser. **Unica eccezione**: la chat facoltativa invia al server solo i messaggi che il cliente scrive, dopo l'avviso e il suo consenso; la conversazione resta solo in memoria. Il preventivo non viene mai mandato alla chat.
 8. Niente chiavi, token o password nel progetto. Il segreto OAuth sta nelle impostazioni di Netlify; il token GitHub dell'admin resta solo in memoria.
 9. **Admin senza database**: legge e salva `public/listino.json` con le API Contents di GitHub (commit su `main`). Prima di salvare passa sempre da `validaListino` e scrive con `serializzaListino`.
 10. **3D e PDF solo su richiesta**: three.js e jsPDF restano in file separati caricati con import dinamico; la pagina iniziale non deve importarli.
